@@ -17,7 +17,7 @@ Project ini saya buat untuk belajar dan mengembangkan pemahaman saya dalam membu
 - Riwayat transaksi
 - Laporan penjualan dan stok
 
-## Teknologi
+## Dibuat Menggunakan
 
 - Laravel
 - PHP
@@ -33,6 +33,34 @@ Project ini masih dalam tahap pengembangan dan masih terdapat beberapa bagian ya
 
 Clone repository:
 
-```bash
-git clone <repository-url>
-cd motostock
+    git clone https://github.com/Dikasu-shi/MotoStock.git
+    cd MotoStock
+
+Install dependency:
+
+    composer install
+    npm install
+
+Salin file environment:
+
+    cp .env.example .env
+
+Generate application key:
+
+    php artisan key:generate
+
+Atur konfigurasi database pada file `.env`, kemudian jalankan migration:
+
+    php artisan migrate
+
+Build frontend:
+
+    npm run build
+
+Jalankan aplikasi:
+
+    php artisan serve
+
+Untuk development frontend:
+
+    npm run dev
