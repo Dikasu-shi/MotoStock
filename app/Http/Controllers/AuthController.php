@@ -10,18 +10,10 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $request->validate([
+        $credentials = $request->validate([
             'username' => ['required', 'string'],
             'password' => ['required', 'string'],
         ]);
-
-        $loginInput = $request->username;
-        $field = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-
-        $credentials = [
-            $field => $loginInput,
-            'password' => $request->password
-        ];
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
@@ -50,34 +42,9 @@ class AuthController extends Controller
             ]);
         }
 
-        // Fallback check alternative field
-        $altField = ($field === 'email') ? 'username' : 'email';
-        if (Auth::attempt([$altField => $loginInput, 'password' => $request->password])) {
-            $request->session()->regenerate();
-            $user = Auth::user();
-            if (isset($user->is_active) && !$user->is_active) {
-                Auth::logout();
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Akun Anda dinonaktifkan. Silakan hubungi Administrator.'
-                ], 403);
-            }
-            $user->update(['last_login' => now()]);
-            return response()->json([
-                'success' => true,
-                'data' => [
-                    'id' => $user->id,
-                    'username' => $user->username,
-                    'nama' => $user->nama,
-                    'role' => $user->role,
-                ],
-                'message' => 'Login berhasil'
-            ]);
-        }
-
         return response()->json([
             'success' => false,
-            'message' => 'Username/Email atau password salah.'
+            'message' => 'Username atau password salah.'
         ], 422);
     }
 
