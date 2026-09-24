@@ -184,6 +184,8 @@ const POS = {
                 stockBg = 'bg-amber-500/10 border-amber-500/20';
             }
 
+            const imgUrl = product.image_url || product.image || ('images/products/' + (product.sku ? product.sku.toLowerCase() : '') + '.png');
+
             return `
                 <div class="bg-slate-900 rounded-md overflow-hidden flex flex-col h-full border border-slate-800 hover:border-brand-red/40 transition-colors group ${isOutOfStock ? 'opacity-60' : ''}">
                     <div class="p-3 flex-1 flex flex-col justify-between">
@@ -194,8 +196,15 @@ const POS = {
                                     Stok: ${product.stok}
                                 </span>
                             </div>
-                            <h4 class="mt-2 text-sm font-semibold text-gray-200 line-clamp-2 min-h-[40px] group-hover:text-brand-red transition-colors">${Utils.escapeHtml(product.nama)}</h4>
-                            <p class="text-[11px] text-gray-500 mt-1">Cocok: <span class="text-gray-400 font-medium">${Utils.escapeHtml(product.motor || 'Universal')}</span></p>
+                            <div class="flex items-start gap-2.5 mt-2">
+                                <div class="w-12 h-12 rounded bg-slate-850 p-1 flex-shrink-0 flex items-center justify-center border border-slate-800">
+                                    <img src="${imgUrl}" alt="${Utils.escapeHtml(product.nama)}" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.parentElement.style.display='none';">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <h4 class="text-xs font-semibold text-gray-200 line-clamp-2 group-hover:text-brand-red transition-colors">${Utils.escapeHtml(product.nama)}</h4>
+                                    <p class="text-[10px] text-gray-500 mt-0.5 truncate">Cocok: <span class="text-gray-400 font-medium">${Utils.escapeHtml(product.motor || 'Universal')}</span></p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="mt-3 pt-2 border-t border-slate-700/60 flex items-center justify-between">

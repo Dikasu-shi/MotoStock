@@ -184,7 +184,7 @@
                         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-black tracking-tight text-brand-red">MotoStock</h2>
+                <h2 class="text-2xl font-black tracking-tight text-[#0f172a]">Moto<span class="text-brand-red">Stock</span></h2>
                 <p class="mt-1 text-[10px] text-[#64748b] font-bold tracking-widest uppercase">INVENTORY & POINT OF SALE</p>
                 <div class="mt-4 space-y-1">
                     <h3 class="text-[18px] font-semibold text-[#0f172a] tracking-tight">Selamat Datang di MotoStock</h3>
@@ -241,17 +241,17 @@
         <div id="sidebar-overlay" class="fixed inset-0 z-40 bg-slate-950/60 backdrop-blur-sm hidden lg:hidden"></div>
 
         <!-- Sidebar Navigation Panel -->
-        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-slate-900 border-r border-slate-850 flex flex-col justify-between transform -translate-x-full transition-transform duration-300 lg:translate-x-0 lg:static lg:h-full flex-shrink-0">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-[#e2e8f0] flex flex-col justify-between transform -translate-x-full transition-transform duration-300 lg:translate-x-0 lg:static lg:h-full flex-shrink-0">
             <div>
                 <!-- Brand logo Header -->
-                <div class="h-16 flex items-center px-6 border-b border-slate-850">
+                <div class="h-16 flex items-center px-6 border-b border-[#e2e8f0]">
                     <div class="flex items-center space-x-3">
-                        <div class="p-1.5 bg-brand-red text-white rounded-md">
+                        <div class="p-1.5 bg-brand-red text-white rounded-md flex items-center justify-center shadow-sm">
                             <i data-lucide="wrench" class="w-4 h-4"></i>
                         </div>
                         <div>
-                            <span class="text-base font-bold text-white tracking-wider">Moto<span class="text-brand-red">Stock</span></span>
-                            <span class="block text-[8px] text-slate-400 font-semibold tracking-wider -mt-1 uppercase">Inventory & POS</span>
+                            <span class="text-base font-bold text-[#0f172a] tracking-wider">Moto<span class="text-brand-red">Stock</span></span>
+                            <span class="block text-[8px] text-[#64748b] font-semibold tracking-wider -mt-1 uppercase">Inventory & POS</span>
                         </div>
                     </div>
                 </div>
@@ -259,96 +259,96 @@
                 <!-- Menu Links -->
                 <nav class="mt-4 px-4 space-y-3 overflow-y-auto max-h-[calc(100vh-140px)]">
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">MAIN</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">MAIN</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#dashboard" id="nav-dashboard" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="layout-dashboard" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#dashboard" id="nav-dashboard" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="layout-dashboard" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Dashboard
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">TRANSAKSI</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">TRANSAKSI</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#pos" id="nav-pos" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="shopping-cart" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#pos" id="nav-pos" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="shopping-cart" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Kasir / POS
                             </a>
-                            <a href="#transactions" id="nav-transactions" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="receipt-text" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#transactions" id="nav-transactions" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="receipt-text" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Penjualan
                             </a>
-                            <a href="#purchases" id="nav-purchases" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="shopping-bag" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#purchases" id="nav-purchases" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="shopping-bag" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Pembelian
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">INVENTORY</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">INVENTORY</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#products" id="nav-products" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="package" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#products" id="nav-products" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="package" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Daftar Spare Part
                             </a>
-                            <a href="#categories" id="nav-categories" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="grid-3x3" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#categories" id="nav-categories" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="grid-3x3" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Kategori
                             </a>
-                            <a href="#stock" id="nav-stock" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="warehouse" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#stock" id="nav-stock" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="warehouse" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Manajemen Stok
                             </a>
-                            <a href="#stock-opname" id="nav-stock-opname" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="clipboard-list" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#stock-opname" id="nav-stock-opname" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="clipboard-list" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Stock Opname
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">MASTER DATA</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">MASTER DATA</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#customers" id="nav-customers" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="users" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#customers" id="nav-customers" class="nav-link flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="users" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Pelanggan
                             </a>
-                            <a href="#suppliers" id="nav-suppliers" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="truck" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#suppliers" id="nav-suppliers" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="truck" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Supplier
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">LAPORAN</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">LAPORAN</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#reports" id="nav-reports" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="bar-chart-3" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#reports" id="nav-reports" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="bar-chart-3" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Laporan Penjualan
                             </a>
-                            <a href="#reports-purchases" id="nav-reports-purchases" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="file-text" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#reports-purchases" id="nav-reports-purchases" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="file-text" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Laporan Pembelian
                             </a>
-                            <a href="#reports-stock" id="nav-reports-stock" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="line-chart" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#reports-stock" id="nav-reports-stock" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="line-chart" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Laporan Stok
                             </a>
                         </div>
                     </div>
 
                     <div>
-                        <div class="px-4 py-1 text-[9px] font-semibold text-slate-500 uppercase tracking-widest">SISTEM</div>
+                        <div class="px-4 py-1 text-[9px] font-bold text-slate-400 uppercase tracking-widest">SISTEM</div>
                         <div class="mt-1 space-y-0.5">
-                            <a href="#users" id="nav-users" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="user-cog" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#users" id="nav-users" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="user-cog" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Pengguna
                             </a>
-                            <a href="#settings" id="nav-settings" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-850 rounded-md transition-colors group">
-                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-slate-400 group-hover:text-white"></i>
+                            <a href="#settings" id="nav-settings" class="nav-link admin-only flex items-center px-4 py-2 text-xs font-medium text-slate-700 hover:text-brand-red hover:bg-red-50 rounded-md transition-colors group">
+                                <i data-lucide="settings" class="w-4 h-4 mr-3 text-slate-600 group-hover:text-brand-red transition-colors"></i>
                                 Pengaturan
                             </a>
                         </div>
@@ -357,16 +357,17 @@
             </div>
 
             <!-- User footer profile block -->
-            <div class="p-4 border-t border-slate-850 bg-slate-900/60">
+            <!-- User footer profile block -->
+            <div class="p-4 border-t border-[#e2e8f0] bg-[#f8fafc]">
                 <div class="flex items-center justify-between">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-8 h-8 rounded-md bg-brand-red/10 border border-brand-red/20 flex items-center justify-center font-bold text-white text-xs" id="user-initials">-</div>
-                        <div>
-                            <span class="block text-xs font-bold text-gray-200" id="user-display-name">-</span>
-                            <span class="inline-block text-[8px] bg-slate-800 text-slate-400 border border-slate-700 px-1.5 py-0.5 rounded font-bold font-mono" id="user-display-role">-</span>
+                    <div class="flex items-center space-x-3 truncate mr-2">
+                        <div class="w-8 h-8 rounded-md bg-[#fff1f1] border border-red-200 text-[#dc0000] flex items-center justify-center font-bold text-xs flex-shrink-0" id="user-initials">-</div>
+                        <div class="truncate">
+                            <span class="block text-xs font-bold text-[#172033] truncate" id="user-display-name">-</span>
+                            <span class="inline-block text-[8px] bg-[#fff1f1] text-[#dc0000] border border-red-200 px-1.5 py-0.5 rounded font-bold font-mono uppercase" id="user-display-role">-</span>
                         </div>
                     </div>
-                    <button class="p-1.5 text-slate-500 hover:text-red-500 hover:bg-slate-800 rounded-md transition-all" id="btn-logout" title="Keluar">
+                    <button class="p-1.5 text-[#475569] hover:text-[#dc0000] hover:bg-[#fff1f1] rounded-md transition-all flex-shrink-0" id="btn-logout" title="Keluar">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -376,29 +377,29 @@
         <!-- Main Body Frame -->
         <main class="flex-1 flex flex-col overflow-hidden bg-slate-950">
             <!-- Top Dashboard Bar -->
-            <header class="h-16 bg-slate-900 border-b border-slate-850 flex items-center justify-between px-6 z-30">
+            <header class="h-16 bg-white border-b border-[#e2e8f0] flex items-center justify-between px-6 z-30">
                 <div class="flex items-center">
                     <!-- Mobile Hamburger Menu Button -->
-                    <button id="btn-open-sidebar" class="p-1.5 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg mr-4 lg:hidden">
+                    <button id="btn-open-sidebar" class="p-1.5 text-[#172033] hover:text-[#dc0000] hover:bg-[#fff1f1] rounded-lg mr-4 lg:hidden">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                     <!-- Current Page Title -->
-                    <h2 class="text-lg font-bold text-white tracking-wide" id="app-page-title">Dashboard</h2>
+                    <h2 class="text-lg font-bold text-[#172033] tracking-wide" id="app-page-title">Dashboard</h2>
                 </div>
 
                 <!-- Dropdown profile menu top right -->
                 <div class="relative">
-                    <button id="user-menu-btn" class="flex items-center space-x-2 text-sm text-slate-300 hover:text-white focus:outline-none transition-colors">
-                        <span id="user-menu-name" class="font-medium hidden md:inline-block">-</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                    <button id="user-menu-btn" class="flex items-center space-x-2 text-sm text-[#172033] hover:text-[#dc0000] hover:bg-[#fff1f1] focus:outline-none transition-all group">
+                        <span id="user-menu-name" class="font-semibold text-[#172033] group-hover:text-[#dc0000] hidden md:inline-block transition-colors">-</span>
+                        <i data-lucide="chevron-down" class="w-4 h-4 text-[#172033] group-hover:text-[#dc0000] transition-colors"></i>
                     </button>
-                    <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-slate-900 border border-slate-800 hidden z-50">
-                        <div class="px-4 py-2 border-b border-slate-800">
-                            <span class="block text-xs text-gray-500">Masuk sebagai</span>
-                            <span id="user-menu-role" class="block text-sm font-semibold text-gray-300">-</span>
+                    <div id="user-menu-dropdown" class="origin-top-right absolute right-0 mt-2 w-48 rounded-lg shadow-lg py-1 bg-white border border-[#e2e8f0] hidden z-50">
+                        <div class="px-4 py-2 border-b border-[#e2e8f0]">
+                            <span class="block text-xs text-[#64748b]">Masuk sebagai</span>
+                            <span id="user-menu-role" class="block text-sm font-bold text-[#172033] uppercase">-</span>
                         </div>
-                        <a href="#pos" class="block px-4 py-2 text-sm text-slate-400 hover:text-white hover:bg-slate-800">Mulai Kasir</a>
-                        <button id="btn-logout-dropdown" class="w-full text-left px-4 py-2 text-sm text-red-400 hover:text-white hover:bg-red-950/40 border-t border-slate-800 flex items-center">
+                        <a href="#pos" class="block px-4 py-2 text-sm text-[#172033] hover:text-[#dc0000] hover:bg-[#fff1f1] transition-colors font-medium">Mulai Kasir</a>
+                        <button id="btn-logout-dropdown" class="w-full text-left px-4 py-2 text-sm text-[#dc0000] hover:bg-[#fff1f1] border-t border-[#e2e8f0] flex items-center transition-colors font-medium">
                             <i data-lucide="log-out" class="w-4 h-4 mr-2"></i> Keluar
                         </button>
                     </div>
@@ -421,7 +422,7 @@
                             </div>
                             <div>
                                 <span class="text-xs font-semibold text-gray-400 uppercase tracking-wider block">Omset Hari Ini</span>
-                                <span class="text-xl font-extrabold text-white font-mono-numbers mt-1 block" id="stat-penjualan-hari-ini">Rp 0</span>
+                                <span class="text-xl font-extrabold text-gray-200 font-mono-numbers mt-1 block" id="stat-penjualan-hari-ini">Rp 0</span>
                             </div>
                         </div>
                         <!-- Stat Card 2 -->
@@ -790,6 +791,16 @@
                             <span class="text-xs text-gray-400">Sampai:</span>
                             <input type="date" id="trx-end-date" class="bg-slate-950 border border-slate-800 rounded-md px-3 py-1 text-xs text-gray-200 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red font-mono-numbers">
                         </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-gray-400">Status Bayar:</span>
+                            <select id="trx-payment-status" class="bg-slate-950 border border-slate-800 rounded-md px-3 py-1 text-xs text-gray-200 focus:outline-none focus:border-brand-red focus:ring-1 focus:ring-brand-red">
+                                <option value="">Semua Status</option>
+                                <option value="Menunggu Konfirmasi">Menunggu Konfirmasi</option>
+                                <option value="Menunggu Pembayaran">Menunggu Pembayaran</option>
+                                <option value="Dibayar">Dibayar</option>
+                                <option value="Ditolak">Ditolak</option>
+                            </select>
+                        </div>
                         <button id="btn-filter-trx" class="px-4 py-1.5 bg-slate-800 text-slate-200 hover:text-white rounded-md text-xs font-semibold border border-slate-700 transition-all">
                             Terapkan Filter
                         </button>
@@ -804,10 +815,12 @@
                                         <th class="px-4 py-3 text-center">No</th>
                                         <th class="px-4 py-3">Nomor Invoice</th>
                                         <th class="px-4 py-3">Tanggal Jam</th>
-                                        <th class="px-4 py-3">Kasir</th>
+                                        <th class="px-4 py-3">Kasir / Pemesan</th>
                                         <th class="px-4 py-3">Pelanggan</th>
                                         <th class="px-4 py-3 text-right">Total Transaksi</th>
                                         <th class="px-4 py-3 text-center">Metode</th>
+                                        <th class="px-4 py-3 text-center">Status Bayar</th>
+                                        <th class="px-4 py-3 text-center">Status Pesanan</th>
                                         <th class="px-4 py-3 text-center">Aksi</th>
                                     </tr>
                                 </thead>
@@ -1512,22 +1525,41 @@
 
                             <div class="space-y-4 pt-4 border-t border-slate-850">
                                 <h4 class="text-xs font-bold text-brand-red uppercase tracking-wider">Metode Pembayaran</h4>
-                                <div class="grid grid-cols-3 gap-4">
-                                    <label class="flex flex-col items-center justify-center p-3 border border-slate-800 rounded-md bg-slate-900 hover:bg-slate-850 cursor-pointer transition-colors relative">
-                                        <input type="radio" name="checkout-payment" value="transfer" checked class="absolute top-2 right-2 accent-brand-red">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <label class="flex flex-col items-center justify-center p-3.5 border border-slate-800 rounded-md bg-slate-900 hover:bg-slate-850 cursor-pointer transition-colors relative" onclick="Store.onPaymentMethodChange('transfer')">
+                                        <input type="radio" name="checkout-payment" value="transfer" checked class="absolute top-2 right-2 accent-brand-red" onchange="Store.onPaymentMethodChange('transfer')">
                                         <i data-lucide="credit-card" class="w-5 h-5 text-slate-300 mb-1"></i>
                                         <span class="text-xs font-semibold text-slate-200">Transfer</span>
                                     </label>
-                                    <label class="flex flex-col items-center justify-center p-3 border border-slate-800 rounded-md bg-slate-900 hover:bg-slate-850 cursor-pointer transition-colors relative">
-                                        <input type="radio" name="checkout-payment" value="qris" class="absolute top-2 right-2 accent-brand-red">
+                                    <label class="flex flex-col items-center justify-center p-3.5 border border-slate-800 rounded-md bg-slate-900 hover:bg-slate-850 cursor-pointer transition-colors relative" onclick="Store.onPaymentMethodChange('qris')">
+                                        <input type="radio" name="checkout-payment" value="qris" class="absolute top-2 right-2 accent-brand-red" onchange="Store.onPaymentMethodChange('qris')">
                                         <i data-lucide="qr-code" class="w-5 h-5 text-slate-300 mb-1"></i>
                                         <span class="text-xs font-semibold text-slate-200">QRIS</span>
                                     </label>
-                                    <label class="flex flex-col items-center justify-center p-3 border border-slate-800 rounded-md bg-slate-900 hover:bg-slate-850 cursor-pointer transition-colors relative">
-                                        <input type="radio" name="checkout-payment" value="tunai" class="absolute top-2 right-2 accent-brand-red">
-                                        <i data-lucide="banknote" class="w-5 h-5 text-slate-300 mb-1"></i>
-                                        <span class="text-xs font-semibold text-slate-200">Tunai</span>
+                                </div>
+
+                                <!-- Pilihan Bank Tujuan Transfer (Wajib jika Transfer) -->
+                                <div id="checkout-bank-selection-container" class="space-y-2 p-3.5 bg-slate-950/80 border border-slate-850 rounded-md">
+                                    <label class="block text-[11px] font-bold uppercase text-slate-300 tracking-wider">
+                                        Pilih Bank Tujuan Transfer <span class="text-brand-red">*</span>
                                     </label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <label class="flex flex-col items-center justify-center p-2.5 border border-slate-800 rounded bg-slate-900 hover:bg-slate-850 hover:border-slate-700 cursor-pointer transition-all relative">
+                                            <input type="radio" name="checkout-bank" value="BCA" checked class="absolute top-2 right-2 accent-brand-red">
+                                            <span class="text-xs font-bold text-slate-100">BCA</span>
+                                            <span class="text-[9px] text-slate-400 font-mono-numbers mt-0.5">8010555123</span>
+                                        </label>
+                                        <label class="flex flex-col items-center justify-center p-2.5 border border-slate-800 rounded bg-slate-900 hover:bg-slate-850 hover:border-slate-700 cursor-pointer transition-all relative">
+                                            <input type="radio" name="checkout-bank" value="BRI" class="absolute top-2 right-2 accent-brand-red">
+                                            <span class="text-xs font-bold text-slate-100">BRI</span>
+                                            <span class="text-[9px] text-slate-400 font-mono-numbers mt-0.5">1234567890</span>
+                                        </label>
+                                        <label class="flex flex-col items-center justify-center p-2.5 border border-slate-800 rounded bg-slate-900 hover:bg-slate-850 hover:border-slate-700 cursor-pointer transition-all relative">
+                                            <input type="radio" name="checkout-bank" value="Mandiri" class="absolute top-2 right-2 accent-brand-red">
+                                            <span class="text-xs font-bold text-slate-100">Mandiri</span>
+                                            <span class="text-[9px] text-slate-400 font-mono-numbers mt-0.5">9876543210</span>
+                                        </label>
+                                    </div>
                                 </div>
                                 <div>
                                     <label class="block text-[10px] font-semibold uppercase text-slate-400 mb-1">Catatan Pesanan (Opsional)</label>
@@ -1575,9 +1607,11 @@
                                         <th class="px-4 py-3 text-center">No</th>
                                         <th class="px-4 py-3">No. Invoice</th>
                                         <th class="px-4 py-3">Tanggal Pesanan</th>
-                                        <th class="px-4 py-3">Metode Bayar</th>
+                                        <th class="px-4 py-3 text-center">Metode Bayar</th>
+                                        <th class="px-4 py-3 text-center">Status Bayar</th>
+                                        <th class="px-4 py-3 text-center">Status Pesanan</th>
                                         <th class="px-4 py-3 text-right">Total</th>
-                                        <th class="px-4 py-3 text-center">Detail</th>
+                                        <th class="px-4 py-3 text-center">Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody id="store-orders-table-body" class="divide-y divide-slate-850">
@@ -1707,23 +1741,23 @@
     <!-- ========================================== -->
     <!-- 5. JAVASCRIPT INCLUDES (SEQUENTIAL ORDER) -->
     <!-- ========================================== -->
-    <script src="js/utils.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/pos.js"></script>
-    <script src="js/products.js"></script>
-    <script src="js/categories.js"></script>
-    <script src="js/customers.js"></script>
-    <script src="js/suppliers.js"></script>
-    <script src="js/transactions.js"></script>
-    <script src="js/reports.js"></script>
-    <script src="js/stock.js"></script>
-    <script src="js/purchases.js"></script>
-    <script src="js/stock_opname.js"></script>
-    <script src="js/users.js"></script>
-    <script src="js/settings.js"></script>
-    <script src="js/store.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/utils.js?v=2.3"></script>
+    <script src="js/auth.js?v=2.3"></script>
+    <script src="js/dashboard.js?v=2.3"></script>
+    <script src="js/pos.js?v=2.3"></script>
+    <script src="js/products.js?v=2.3"></script>
+    <script src="js/categories.js?v=2.3"></script>
+    <script src="js/customers.js?v=2.3"></script>
+    <script src="js/suppliers.js?v=2.3"></script>
+    <script src="js/transactions.js?v=2.3"></script>
+    <script src="js/reports.js?v=2.3"></script>
+    <script src="js/stock.js?v=2.3"></script>
+    <script src="js/purchases.js?v=2.3"></script>
+    <script src="js/stock_opname.js?v=2.3"></script>
+    <script src="js/users.js?v=2.3"></script>
+    <script src="js/settings.js?v=2.3"></script>
+    <script src="js/store.js?v=2.3"></script>
+    <script src="js/app.js?v=2.3"></script>
 
 </body>
 </html>

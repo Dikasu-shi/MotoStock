@@ -163,6 +163,7 @@ const Products = {
 
             // Determine if the product is active/inactive
             const statusLabel = parseInt(product.is_active) === 0 ? ' <span class="text-[9px] bg-slate-800 text-slate-500 border border-slate-700 px-1 py-0.2 rounded ml-1 uppercase font-bold">Non-aktif</span>' : '';
+            const imgUrl = product.image_url || product.image || ('images/products/' + (product.sku ? product.sku.toLowerCase() : '') + '.png');
 
             return `
                 <tr class="border-b border-slate-700/50 hover:bg-slate-800/40 transition-colors ${parseInt(product.is_active) === 0 ? 'opacity-50' : ''}">
@@ -170,8 +171,15 @@ const Products = {
                     <td class="px-4 py-3 text-xs font-bold text-gray-400 font-mono-numbers">${Utils.escapeHtml(product.sku)}</td>
                     <td class="px-4 py-3 text-xs text-gray-400 font-mono-numbers">${Utils.escapeHtml(product.part_number || '-')}</td>
                     <td class="px-4 py-3 text-sm">
-                        <div class="font-semibold text-gray-200 inline-flex items-center">${Utils.escapeHtml(product.nama)}${statusLabel}</div>
-                        <div class="text-[11px] text-gray-400 mt-0.5">Motor: <span class="font-medium">${motorHtml}</span></div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded bg-slate-850 p-1 flex-shrink-0 flex items-center justify-center border border-slate-800">
+                                <img src="${imgUrl}" alt="${Utils.escapeHtml(product.nama)}" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.parentElement.style.display='none';">
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-200 inline-flex items-center">${Utils.escapeHtml(product.nama)}${statusLabel}</div>
+                                <div class="text-[11px] text-gray-400 mt-0.5">Motor: <span class="font-medium">${motorHtml}</span></div>
+                            </div>
+                        </div>
                     </td>
                     <td class="px-4 py-3 text-sm text-gray-400">${Utils.escapeHtml(product.category_nama || '-')}</td>
                     <td class="px-4 py-3 text-sm text-right font-mono-numbers text-gray-400">${Utils.formatRupiah(product.harga_beli)}</td>

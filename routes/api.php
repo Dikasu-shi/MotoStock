@@ -67,6 +67,11 @@ Route::middleware(['web'])->group(function () {
         Route::get('/transactions', [TransactionController::class, 'index']);
         Route::post('/transactions', [TransactionController::class, 'store']);
         Route::get('/transactions/{id}', [TransactionController::class, 'show']);
+        Route::post('/transactions/{id}/upload-proof', [TransactionController::class, 'uploadProof']);
+        Route::get('/transactions/{id}/proof', [TransactionController::class, 'getProof']);
+        Route::post('/transactions/{id}/verify-payment', [TransactionController::class, 'verifyPayment']);
+        Route::post('/transactions/{id}/reject-payment', [TransactionController::class, 'rejectPayment']);
+        Route::post('/transactions/{id}/update-status', [TransactionController::class, 'updateStatus']);
         Route::post('/transactions/{id}/void', [TransactionController::class, 'void']);
 
         // Reports

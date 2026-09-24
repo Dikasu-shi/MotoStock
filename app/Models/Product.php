@@ -32,6 +32,15 @@ class Product extends Model
         'stok_minimum' => 'integer'
     ];
 
+    protected $appends = [
+        'image_url'
+    ];
+
+    public function getImageUrlAttribute(): string
+    {
+        return '/images/products/' . strtolower($this->sku) . '.png';
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

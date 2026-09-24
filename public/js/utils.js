@@ -169,7 +169,17 @@ const Utils = {
         modalBody.innerHTML = contentHtml;
 
         if (footerHtml) {
-            modalFooter.innerHTML = footerHtml;
+            if (typeof footerHtml === 'object' && footerHtml !== null) {
+                if (Array.isArray(footerHtml.buttons)) {
+                    modalFooter.innerHTML = `<div class="flex justify-end space-x-2 w-full">` +
+                        footerHtml.buttons.map(btn => `<button type="button" class="px-4 py-2 text-xs font-semibold rounded-md transition-colors ${btn.class || 'bg-slate-800 text-slate-200 hover:bg-slate-700'}" onclick="${btn.onclick || 'Utils.closeModal()'}">${btn.text}</button>`).join('') +
+                    `</div>`;
+                } else {
+                    modalFooter.innerHTML = '';
+                }
+            } else {
+                modalFooter.innerHTML = footerHtml;
+            }
             modalFooter.classList.remove('hidden');
         } else {
             modalFooter.innerHTML = '';
@@ -252,7 +262,10 @@ const Utils = {
 
     // Escape raw input data
     escapeHtml: function(text) {
-        if (!text) return '';
+        if (text === null || text === undefined) return '';
+        if (typeof text === 'object') {
+            return JSON.stringify(text);
+        }
         const map = {
             '&': '&amp;',
             '<': '&lt;',

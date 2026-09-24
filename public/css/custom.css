@@ -76,12 +76,115 @@ body {
     animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Active navigation indicators - Light red theme */
-.nav-active {
-    background-color: rgba(204, 0, 0, 0.06) !important; /* Semi-transparent Brand Red */
-    border-left: 3px solid #cc0000 !important; /* Solid Brand Red left line */
-    color: #cc0000 !important;
-    font-weight: 600;
+/* Active & Hover navigation indicators - MotoStock Red Accent */
+#sidebar .nav-link {
+    color: #1e293b !important;
+    font-weight: 500 !important;
+    transition: all 0.15s ease-in-out;
+}
+
+#sidebar .nav-link i,
+#sidebar .nav-link svg {
+    color: #475569 !important;
+    transition: color 0.15s ease-in-out;
+}
+
+#sidebar .nav-link:hover {
+    background-color: #fff1f1 !important;
+    color: #dc0000 !important;
+}
+
+#sidebar .nav-link:hover i,
+#sidebar .nav-link:hover svg {
+    color: #dc0000 !important;
+}
+
+#sidebar .nav-active {
+    background-color: #fff1f1 !important;
+    border-left: 3px solid #dc0000 !important;
+    color: #dc0000 !important;
+    font-weight: 600 !important;
+}
+
+#sidebar .nav-active i,
+#sidebar .nav-active svg {
+    color: #dc0000 !important;
+}
+
+/* User Profile & Top Header Contrast Improvements */
+#user-menu-btn {
+    color: #172033 !important;
+    padding: 0.375rem 0.625rem;
+    border-radius: 0.5rem;
+    transition: all 0.15s ease-in-out;
+}
+
+#user-menu-btn:hover {
+    background-color: #fff1f1 !important;
+    color: #dc0000 !important;
+}
+
+#user-menu-btn #user-menu-name {
+    color: #172033 !important;
+    font-weight: 600 !important;
+    transition: color 0.15s ease-in-out;
+}
+
+#user-menu-btn:hover #user-menu-name {
+    color: #dc0000 !important;
+}
+
+#user-menu-btn svg,
+#user-menu-btn i {
+    color: #172033 !important;
+    transition: color 0.15s ease-in-out;
+}
+
+#user-menu-btn:hover svg,
+#user-menu-btn:hover i {
+    color: #dc0000 !important;
+}
+
+#user-display-name {
+    color: #172033 !important;
+    font-weight: 700 !important;
+}
+
+#user-display-role {
+    background-color: #fff1f1 !important;
+    color: #dc0000 !important;
+    border: 1px solid #fecaca !important;
+    font-weight: 700 !important;
+}
+
+#user-initials {
+    background-color: #fff1f1 !important;
+    border: 1px solid #fecaca !important;
+    color: #dc0000 !important;
+    font-weight: 700 !important;
+}
+
+#btn-logout {
+    color: #475569 !important;
+    transition: all 0.15s ease-in-out;
+}
+
+#btn-logout:hover {
+    background-color: #fff1f1 !important;
+    color: #dc0000 !important;
+}
+
+#app-page-title {
+    color: #172033 !important;
+}
+
+#btn-open-sidebar {
+    color: #172033 !important;
+}
+
+#btn-open-sidebar:hover {
+    background-color: #fff1f1 !important;
+    color: #dc0000 !important;
 }
 
 /* Custom styling for POS screen height adjustment */
