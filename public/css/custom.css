@@ -1,0 +1,122 @@
+/* Import Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8f9fa;
+    color: #1e293b;
+}
+
+/* Number display with monospace font for perfect column alignment */
+.font-mono-numbers {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Custom Scrollbar for modern look */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Solid panel design matching light theme */
+.glass-panel {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* Toast animations */
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+.animate-slide-in {
+    animation: slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.animate-fade-out {
+    animation: fadeOut 0.3s ease forwards;
+}
+
+/* Custom animations for modal and page loads */
+@keyframes scaleUp {
+    from {
+        transform: scale(0.98);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.animate-scale-up {
+    animation: scaleUp 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Active navigation indicators - Light red theme */
+.nav-active {
+    background-color: rgba(204, 0, 0, 0.06) !important; /* Semi-transparent Brand Red */
+    border-left: 3px solid #cc0000 !important; /* Solid Brand Red left line */
+    color: #cc0000 !important;
+    font-weight: 600;
+}
+
+/* Custom styling for POS screen height adjustment */
+.pos-container {
+    height: calc(100vh - 65px);
+}
+
+/* Storefront Card Hover Effects */
+.store-product-card {
+    transition: all 0.2s ease-in-out;
+}
+.store-product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+}
+
+/* Print Invoice Styles */
+@media print {
+    body * {
+        visibility: hidden;
+    }
+    #modal-overlay, #modal-overlay * {
+        visibility: visible;
+    }
+    #modal-overlay {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white !important;
+        padding: 0;
+        margin: 0;
+        box-shadow: none;
+    }
+    .no-print {
+        display: none !important;
+    }
+}
