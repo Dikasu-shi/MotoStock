@@ -11,6 +11,8 @@ class StockController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeStaff();
+
         $query = StockHistory::select('stock_history.*', 'products.nama as product_nama', 'products.sku', 'users.nama as user_nama')
             ->join('products', 'stock_history.product_id', '=', 'products.id')
             ->leftJoin('users', 'stock_history.user_id', '=', 'users.id');
@@ -41,6 +43,8 @@ class StockController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'product_id' => 'required|integer|exists:products,id',
             'qty' => 'required|integer|min:1',
@@ -86,6 +90,8 @@ class StockController extends Controller
 
     public function adjust(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'product_id' => 'required|integer|exists:products,id',
             'physical_qty' => 'required|integer|min:0',

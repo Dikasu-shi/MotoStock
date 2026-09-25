@@ -13,6 +13,8 @@ class PurchaseController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeAdmin();
+
         $query = Purchase::select('purchases.*', 'suppliers.nama as supplier_nama', 'users.nama as user_nama')
             ->leftJoin('suppliers', 'purchases.supplier_id', '=', 'suppliers.id')
             ->join('users', 'purchases.user_id', '=', 'users.id');
@@ -31,6 +33,8 @@ class PurchaseController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'supplier_id' => 'nullable|integer|exists:suppliers,id',
             'catatan' => 'nullable|string',
@@ -126,6 +130,8 @@ class PurchaseController extends Controller
 
     public function show($id)
     {
+        $this->authorizeAdmin();
+
         $purchase = Purchase::with(['supplier', 'user'])->findOrFail($id);
         $items = PurchaseItem::select('purchase_items.*', 'products.sku')
             ->join('products', 'purchase_items.product_id', '=', 'products.id')

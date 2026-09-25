@@ -97,16 +97,18 @@ const App = {
                 const adminRoutes = [
                     '#categories',
                     '#suppliers',
+                    '#purchases',
+                    '#stock-opname',
                     '#reports',
                     '#reports-purchases',
                     '#reports-stock',
                     '#users',
-                    '#settings',
-                    '#stock-opname'
+                    '#settings'
                 ];
-                if (adminRoutes.includes(hash)) {
+                const hashPath = hash.split('?')[0];
+                if (adminRoutes.includes(hashPath)) {
                     Utils.showToast('Akses ditolak. Halaman ini hanya untuk Administrator.', 'error');
-                    window.location.hash = '#dashboard';
+                    window.location.hash = '#pos';
                     return;
                 }
             }

@@ -65,6 +65,8 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'sku' => 'required|string|max:50|unique:products,sku',
             'part_number' => 'nullable|string|max:100',
@@ -108,6 +110,8 @@ class ProductController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'id' => 'required|integer|exists:products,id',
             'sku' => 'required|string|max:50|unique:products,sku,' . $request->id,
@@ -137,6 +141,8 @@ class ProductController extends Controller
 
     public function destroy($id)
     {
+        $this->authorizeAdmin();
+
         $product = Product::findOrFail($id);
 
         // Check if there is transaction history

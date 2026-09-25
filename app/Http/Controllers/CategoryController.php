@@ -10,6 +10,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
+        $this->authorizeAdmin();
+
         $categories = Category::withCount(['products' => function ($query) {
             $query->where('is_active', true);
         }])->get();
@@ -28,6 +30,8 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'nama' => 'required|string|max:100',
             'deskripsi' => 'nullable|string',
@@ -45,6 +49,8 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'id' => 'required|integer|exists:categories,id',
             'nama' => 'required|string|max:100',
@@ -64,6 +70,8 @@ class CategoryController extends Controller
 
     public function destroy($id)
     {
+        $this->authorizeAdmin();
+
         $category = Category::findOrFail($id);
 
         // Check if there are active products inside this category

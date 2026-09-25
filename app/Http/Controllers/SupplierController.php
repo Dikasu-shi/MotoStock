@@ -9,6 +9,8 @@ class SupplierController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeAdmin();
+
         $query = Supplier::query();
 
         if ($request->filled('search')) {
@@ -31,6 +33,8 @@ class SupplierController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'nama' => 'required|string|max:100',
             'kontak_person' => 'required|string|max:100',
@@ -50,6 +54,8 @@ class SupplierController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'id' => 'required|integer|exists:suppliers,id',
             'nama' => 'required|string|max:100',
@@ -71,6 +77,8 @@ class SupplierController extends Controller
 
     public function destroy($id)
     {
+        $this->authorizeAdmin();
+
         $supplier = Supplier::findOrFail($id);
         $supplier->delete();
 

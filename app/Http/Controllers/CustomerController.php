@@ -9,6 +9,8 @@ class CustomerController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeStaff();
+
         $query = Customer::query();
 
         if ($request->filled('search')) {
@@ -30,6 +32,8 @@ class CustomerController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeStaff();
+
         $request->validate([
             'nama' => 'required|string|max:100',
             'telepon' => 'required|string|max:20',
@@ -54,6 +58,8 @@ class CustomerController extends Controller
 
     public function update(Request $request)
     {
+        $this->authorizeStaff();
+
         $request->validate([
             'id' => 'required|integer|exists:customers,id',
             'nama' => 'required|string|max:100',
@@ -83,6 +89,8 @@ class CustomerController extends Controller
 
     public function destroy($id)
     {
+        $this->authorizeStaff();
+
         $customer = Customer::findOrFail($id);
 
         if ($customer->nama === 'Umum (Walk-in)') {

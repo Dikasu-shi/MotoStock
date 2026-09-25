@@ -10,8 +10,7 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        // Require admin role
-        $this->checkAdmin();
+        $this->authorizeAdmin();
 
         $users = User::orderBy('nama', 'asc')->get();
 
@@ -23,7 +22,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $this->checkAdmin();
+        $this->authorizeAdmin();
 
         $request->validate([
             'username' => 'required|string|max:50|unique:users,username',
@@ -48,7 +47,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $this->checkAdmin();
+        $this->authorizeAdmin();
 
         $request->validate([
             'id' => 'required|integer|exists:users,id',
@@ -77,7 +76,7 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        $this->checkAdmin();
+        $this->authorizeAdmin();
 
         $user = User::findOrFail($id);
 
@@ -105,13 +104,5 @@ class UserController extends Controller
             'success' => true,
             'message' => 'Pengguna berhasil dihapus secara permanen'
         ]);
-    }
-
-    private function checkAdmin()
-    {
-        $user = auth()->user() ?? User::find(1); // fallback to admin if no session (local CLI)
-        if ($user && $user->role !== 'admin') {
-            abort(403, 'Akses ditolak. Hanya Administrator yang dapat mengakses menu ini.');
-        }
     }
 }

@@ -348,13 +348,7 @@ class TransactionController extends Controller
      */
     public function verifyPayment($id, Request $request)
     {
-        $user = auth()->user();
-        if ($user && $user->role === 'customer') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hanya Admin atau Kasir yang dapat memverifikasi pembayaran.'
-            ], 403);
-        }
+        $user = $this->authorizeStaff();
 
         $transaction = Transaction::findOrFail($id);
         $transaction->update([
@@ -362,7 +356,7 @@ class TransactionController extends Controller
             'status_pesanan' => ($transaction->status_pesanan === 'Menunggu Pembayaran' || $transaction->status_pesanan === 'Dibatalkan') ? 'Diproses' : $transaction->status_pesanan,
             'catatan_penolakan' => null,
             'konfirmasi_at' => now(),
-            'verified_by' => $user ? $user->id : 1
+            'verified_by' => $user->id
         ]);
 
         return response()->json([
@@ -377,13 +371,7 @@ class TransactionController extends Controller
      */
     public function rejectPayment($id, Request $request)
     {
-        $user = auth()->user();
-        if ($user && $user->role === 'customer') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Hanya Admin atau Kasir yang dapat menolak pembayaran.'
-            ], 403);
-        }
+        $user = $this->authorizeStaff();
 
         $request->validate([
             'catatan_penolakan' => 'nullable|string|max:500'
@@ -399,7 +387,7 @@ class TransactionController extends Controller
             'status_pembayaran' => 'Ditolak',
             'catatan_penolakan' => $reason,
             'konfirmasi_at' => now(),
-            'verified_by' => $user ? $user->id : 1
+            'verified_by' => $user->id
         ]);
 
         return response()->json([
@@ -414,13 +402,7 @@ class TransactionController extends Controller
      */
     public function updateStatus($id, Request $request)
     {
-        $user = auth()->user();
-        if ($user && $user->role === 'customer') {
-            return response()->json([
-                'success' => false,
-                'message' => 'Akses ditolak.'
-            ], 403);
-        }
+        $this->authorizeStaff();
 
         $request->validate([
             'status_pesanan' => 'required|in:Menunggu Pembayaran,Diproses,Selesai,Dibatalkan'
@@ -477,6 +459,8 @@ class TransactionController extends Controller
 
     public function void($id)
     {
+        $this->authorizeStaff();
+
         try {
             DB::transaction(function () use ($id) {
                 $transaction = Transaction::findOrFail($id);

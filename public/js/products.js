@@ -121,6 +121,23 @@ const Products = {
 
         if (response.success) {
             this.products = response.data;
+            if (!this.categories || this.categories.length === 0) {
+                const seen = new Set();
+                const derived = [];
+                this.products.forEach(p => {
+                    if (p.category_id && !seen.has(p.category_id)) {
+                        seen.add(p.category_id);
+                        derived.push({ id: p.category_id, nama: p.category_nama || ('Kategori ' + p.category_id) });
+                    }
+                });
+                this.categories = derived;
+                const filterDropdown = document.getElementById('product-cat-filter');
+                if (filterDropdown && this.categories.length > 0) {
+                    let options = '<option value="">Semua Kategori</option>';
+                    options += this.categories.map(c => `<option value="${c.id}">${Utils.escapeHtml(c.nama)}</option>`).join('');
+                    filterDropdown.innerHTML = options;
+                }
+            }
             this.renderTable(response.data);
         } else {
             Utils.showToast('Gagal memuat produk.', 'error');

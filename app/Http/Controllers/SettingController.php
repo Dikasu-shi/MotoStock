@@ -19,6 +19,8 @@ class SettingController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'store_name' => 'required|string|max:100',
             'store_tagline' => 'required|string|max:100',

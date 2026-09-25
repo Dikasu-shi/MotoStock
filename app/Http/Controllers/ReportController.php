@@ -11,6 +11,8 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date',
@@ -95,6 +97,8 @@ class ReportController extends Controller
 
     public function purchases(Request $request)
     {
+        $this->authorizeAdmin();
+
         $request->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date',
@@ -167,6 +171,8 @@ class ReportController extends Controller
 
     public function stockValuation()
     {
+        $this->authorizeAdmin();
+
         $products = \App\Models\Product::where('is_active', true)->get();
 
         $totalBeliVal = 0;

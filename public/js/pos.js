@@ -86,6 +86,18 @@ const POS = {
         const prodRes = await Utils.apiCall('products');
         if (prodRes.success) {
             this.products = prodRes.data.filter(p => p.is_active === true || p.is_active == 1 || p.is_active === '1');
+            if (!this.categories || this.categories.length === 0) {
+                const seen = new Set();
+                const derived = [];
+                this.products.forEach(p => {
+                    if (p.category_id && !seen.has(p.category_id)) {
+                        seen.add(p.category_id);
+                        derived.push({ id: p.category_id, nama: p.category_nama || ('Kategori ' + p.category_id) });
+                    }
+                });
+                this.categories = derived;
+                this.renderCategoryChips();
+            }
             this.filterAndRenderProducts();
         }
     },

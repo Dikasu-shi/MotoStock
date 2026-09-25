@@ -12,6 +12,8 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        $this->authorizeStaff();
+
         $today = date('Y-m-d');
 
         // 1. Penjualan Hari Ini
