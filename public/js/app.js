@@ -187,7 +187,7 @@ const App = {
                 break;
             case '#stock':
                 pageId = 'page-stock';
-                pageTitle = 'Manajemen & Mutasi Stok';
+                pageTitle = 'Stok';
                 activeNavId = 'nav-stock';
                 moduleInit = () => Stock.init();
                 break;
