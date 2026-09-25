@@ -1,4 +1,4 @@
-// Authentication Module for MyKasir
+// Authentication Module for MotoStock
 
 const Auth = {
     // Current logged in user object
@@ -9,6 +9,91 @@ const Auth = {
         const loginForm = document.getElementById('login-form');
         if (loginForm) {
             loginForm.addEventListener('submit', this.handleLoginSubmit.bind(this));
+        }
+
+        const registerForm = document.getElementById('register-form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', this.handleRegisterSubmit.bind(this));
+        }
+    },
+
+    // Handle register form submit
+    handleRegisterSubmit: async function(e) {
+        e.preventDefault();
+
+        const namaInput = document.getElementById('register-nama');
+        const usernameInput = document.getElementById('register-username');
+        const passwordInput = document.getElementById('register-password');
+        const confirmPasswordInput = document.getElementById('register-password-confirmation');
+        const registerSubmitBtn = document.getElementById('register-submit-btn');
+
+        const nama = namaInput.value.trim();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        const passwordConfirmation = confirmPasswordInput.value;
+
+        if (!nama) {
+            Utils.showToast('Nama lengkap wajib diisi.', 'error');
+            return;
+        }
+
+        if (!username) {
+            Utils.showToast('Username wajib diisi.', 'error');
+            return;
+        }
+
+        if (!password) {
+            Utils.showToast('Password wajib diisi.', 'error');
+            return;
+        }
+
+        if (password.length < 6) {
+            Utils.showToast('Password minimal 6 karakter.', 'error');
+            return;
+        }
+
+        if (password !== passwordConfirmation) {
+            Utils.showToast('Konfirmasi password tidak cocok.', 'error');
+            return;
+        }
+
+        Utils.setLoading(registerSubmitBtn, true, 'Daftar');
+
+        // Call API auth/register
+        const result = await Utils.apiCall('auth/register', 'POST', {
+            nama: nama,
+            username: username,
+            password: password,
+            password_confirmation: passwordConfirmation
+        });
+
+        Utils.setLoading(registerSubmitBtn, false, 'Daftar');
+
+        if (result.success) {
+            Utils.showToast('Registrasi berhasil. Silakan masuk menggunakan akun Anda.', 'success');
+
+            // Clear register form fields
+            namaInput.value = '';
+            usernameInput.value = '';
+            passwordInput.value = '';
+            confirmPasswordInput.value = '';
+
+            // Prefill login form with registered username
+            const loginUsername = document.getElementById('login-username');
+            if (loginUsername) {
+                loginUsername.value = username;
+            }
+            const loginPassword = document.getElementById('login-password');
+            if (loginPassword) {
+                loginPassword.value = '';
+                loginPassword.focus();
+            }
+
+            // Redirect to Login page
+            window.location.hash = '#login';
+            App.showLoginPage();
+        } else {
+            Utils.showToast(result.message || 'Registrasi gagal. Silakan periksa kembali data Anda.', 'error');
         }
     },
 

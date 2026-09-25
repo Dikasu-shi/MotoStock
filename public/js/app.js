@@ -67,7 +67,11 @@ const App = {
 
         // Block routes if not logged in
         if (!Auth.currentUser) {
-            this.showLoginPage();
+            if (hash === '#register') {
+                this.showRegisterPage();
+            } else {
+                this.showLoginPage();
+            }
             return;
         }
 
@@ -76,7 +80,7 @@ const App = {
         // Role Router Guard
         if (role === 'customer') {
             // Customer is strictly restricted to pages starting with '#store'
-            if (!hash.startsWith('#store') && hash !== '#login') {
+            if (!hash.startsWith('#store') && hash !== '#login' && hash !== '#register') {
                 Utils.showToast('Akses ditolak. Halaman ini hanya untuk Administrator/Kasir.', 'error');
                 window.location.hash = '#store';
                 return;
@@ -109,7 +113,7 @@ const App = {
         }
 
         // Route Fallback
-        if (hash === '' || hash === '#login') {
+        if (hash === '' || hash === '#login' || hash === '#register') {
             window.location.hash = role === 'customer' ? '#store' : '#dashboard';
             return;
         }
@@ -328,9 +332,30 @@ const App = {
 
     showLoginPage: function() {
         document.getElementById('login-page').classList.remove('hidden');
+        const loginCard = document.getElementById('login-card');
+        const registerCard = document.getElementById('register-card');
+        if (loginCard) loginCard.classList.remove('hidden');
+        if (registerCard) registerCard.classList.add('hidden');
         document.getElementById('main-app').classList.add('hidden');
         document.getElementById('customer-app').classList.add('hidden');
-        window.location.hash = '#login';
+        if (window.location.hash !== '#login' && window.location.hash !== '#register') {
+            window.location.hash = '#login';
+        }
+        lucide.createIcons();
+    },
+
+    showRegisterPage: function() {
+        document.getElementById('login-page').classList.remove('hidden');
+        const loginCard = document.getElementById('login-card');
+        const registerCard = document.getElementById('register-card');
+        if (loginCard) loginCard.classList.add('hidden');
+        if (registerCard) registerCard.classList.remove('hidden');
+        document.getElementById('main-app').classList.add('hidden');
+        document.getElementById('customer-app').classList.add('hidden');
+        if (window.location.hash !== '#register') {
+            window.location.hash = '#register';
+        }
+        lucide.createIcons();
     },
 
     onLoginSuccess: async function(user) {

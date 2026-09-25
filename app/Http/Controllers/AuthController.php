@@ -5,9 +5,47 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+    public function register(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama' => ['required', 'string', 'max:100'],
+            'username' => ['required', 'string', 'max:50', 'unique:users,username'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ], [
+            'username.unique' => 'Username sudah digunakan. Silakan pilih username lain.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+            'password.min' => 'Password minimal 6 karakter.',
+            'nama.required' => 'Nama lengkap wajib diisi.',
+            'username.required' => 'Username wajib diisi.',
+            'password.required' => 'Password wajib diisi.',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        // Strictly assign role as 'customer' to prevent privilege escalation
+        $user = User::create([
+            'nama' => $request->nama,
+            'username' => $request->username,
+            'password' => $request->password,
+            'role' => 'customer',
+            'is_active' => true,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Registrasi berhasil'
+        ]);
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
