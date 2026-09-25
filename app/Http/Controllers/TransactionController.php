@@ -54,6 +54,13 @@ class TransactionController extends Controller
     public function store(Request $request)
     {
         $user = auth()->user();
+        if ($user && $user->role === 'admin') {
+            return response()->json([
+                'success' => false,
+                'message' => 'Akses ditolak. Administrator tidak memiliki hak akses untuk membuat transaksi kasir langsung.'
+            ], 403);
+        }
+
         $userId = $user ? $user->id : 1;
         $isCustomer = $user && $user->role === 'customer';
 

@@ -78,6 +78,8 @@ const App = {
         const role = Auth.currentUser.role;
 
         // Role Router Guard
+        const hashPath = hash.split('?')[0];
+
         if (role === 'customer') {
             // Customer is strictly restricted to pages starting with '#store'
             if (!hash.startsWith('#store') && hash !== '#login' && hash !== '#register') {
@@ -85,38 +87,46 @@ const App = {
                 window.location.hash = '#store';
                 return;
             }
-        } else {
-            // Admin or Kasir trying to access customer store
+        } else if (role === 'admin') {
+            // Admin is restricted from customer store and cashier transaction page
             if (hash.startsWith('#store')) {
                 window.location.hash = '#dashboard';
                 return;
             }
+            if (hashPath === '#pos') {
+                Utils.showToast('Akses ditolak. Halaman Kasir hanya dapat diakses oleh Kasir.', 'error');
+                window.location.hash = '#dashboard';
+                return;
+            }
+        } else if (role === 'kasir') {
+            // Kasir trying to access customer store
+            if (hash.startsWith('#store')) {
+                window.location.hash = '#pos';
+                return;
+            }
 
             // Kasir route protection (operational access only)
-            if (role === 'kasir') {
-                const adminRoutes = [
-                    '#categories',
-                    '#suppliers',
-                    '#purchases',
-                    '#stock-opname',
-                    '#reports',
-                    '#reports-purchases',
-                    '#reports-stock',
-                    '#users',
-                    '#settings'
-                ];
-                const hashPath = hash.split('?')[0];
-                if (adminRoutes.includes(hashPath)) {
-                    Utils.showToast('Akses ditolak. Halaman ini hanya untuk Administrator.', 'error');
-                    window.location.hash = '#pos';
-                    return;
-                }
+            const adminRoutes = [
+                '#categories',
+                '#suppliers',
+                '#purchases',
+                '#stock-opname',
+                '#reports',
+                '#reports-purchases',
+                '#reports-stock',
+                '#users',
+                '#settings'
+            ];
+            if (adminRoutes.includes(hashPath)) {
+                Utils.showToast('Akses ditolak. Halaman ini hanya untuk Administrator.', 'error');
+                window.location.hash = '#pos';
+                return;
             }
         }
 
         // Route Fallback
         if (hash === '' || hash === '#login' || hash === '#register') {
-            window.location.hash = role === 'customer' ? '#store' : '#dashboard';
+            window.location.hash = role === 'customer' ? '#store' : (role === 'kasir' ? '#pos' : '#dashboard');
             return;
         }
 
@@ -124,8 +134,6 @@ const App = {
         let pageTitle = 'Dashboard Ringkasan';
         let activeNavId = 'nav-dashboard';
         let moduleInit = () => Dashboard.init();
-
-        const hashPath = hash.split('?')[0];
 
         switch (hashPath) {
             // Admin/Kasir Routes
@@ -137,7 +145,7 @@ const App = {
                 break;
             case '#pos':
                 pageId = 'page-pos';
-                pageTitle = 'Mesin Kasir (POS)';
+                pageTitle = 'Kasir';
                 activeNavId = 'nav-pos';
                 moduleInit = () => POS.init();
                 break;
@@ -398,6 +406,16 @@ const App = {
             const adminElements = document.querySelectorAll('.admin-only');
             adminElements.forEach(el => {
                 if (user.role === 'admin') {
+                    el.classList.remove('hidden');
+                } else {
+                    el.classList.add('hidden');
+                }
+            });
+
+            // Show/hide Cashier-only elements in sidebar
+            const cashierElements = document.querySelectorAll('.cashier-only');
+            cashierElements.forEach(el => {
+                if (user.role === 'kasir') {
                     el.classList.remove('hidden');
                 } else {
                     el.classList.add('hidden');
