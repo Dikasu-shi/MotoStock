@@ -151,7 +151,6 @@ const Stock = {
                 <div>
                     <label class="block text-xs font-semibold text-gray-400 mb-1">PILIH SPARE PART *</label>
                     <input type="hidden" name="product_id" id="stock-in-product-id" required>
-                    
                     <!-- Search Input & Results Container -->
                     <div id="stock-search-container" class="relative">
                         <div class="relative">

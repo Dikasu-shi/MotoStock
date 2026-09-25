@@ -199,7 +199,7 @@ const App = {
                 break;
             case '#stock-opname':
                 pageId = 'page-stock-opname';
-                pageTitle = 'Stock Opname (Penyesuaian)';
+                pageTitle = 'Stok Opname';
                 activeNavId = 'nav-stock-opname';
                 moduleInit = () => StockOpname.init();
                 break;

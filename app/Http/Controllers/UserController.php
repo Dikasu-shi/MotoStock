@@ -34,7 +34,7 @@ class UserController extends Controller
 
         $payload = $request->all();
         // The hashed cast in User.php will handle automatic hashing of 'password'
-        $payload['is_active'] = $request->has('is_active') ? (bool)$request->is_active : true;
+        $payload['is_active'] = $request->has('is_active') ? filter_var($request->is_active, FILTER_VALIDATE_BOOLEAN) : true;
 
         $user = User::create($payload);
 
@@ -60,7 +60,10 @@ class UserController extends Controller
 
         $user = User::findOrFail($request->id);
 
-        $data = $request->only(['username', 'nama', 'role', 'is_active']);
+        $data = $request->only(['username', 'nama', 'role']);
+        if ($request->has('is_active')) {
+            $data['is_active'] = filter_var($request->is_active, FILTER_VALIDATE_BOOLEAN);
+        }
         if ($request->filled('password')) {
             $data['password'] = $request->password;
         }
@@ -88,21 +91,23 @@ class UserController extends Controller
             ], 422);
         }
 
-        // Check if user has transaction history
-        $hasTrx = \App\Models\Transaction::where('user_id', $id)->exists();
-        if ($hasTrx) {
-            $user->update(['is_active' => false]);
+        // Check if user has transaction, purchase, or stock history
+        $hasHistory = \App\Models\Transaction::where('user_id', $id)->exists()
+            || \App\Models\Purchase::where('user_id', $id)->exists()
+            || \App\Models\StockHistory::where('user_id', $id)->exists();
+
+        if ($hasHistory) {
             return response()->json([
-                'success' => true,
-                'message' => 'Pengguna dinonaktifkan (diarsipkan) karena memiliki riwayat transaksi'
-            ]);
+                'success' => false,
+                'message' => 'Pengguna ini masih memiliki riwayat transaksi dan tidak dapat dihapus. Silakan ubah status menjadi Nonaktif.'
+            ], 422);
         }
 
         $user->delete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Pengguna berhasil dihapus secara permanen'
+            'message' => 'Pengguna berhasil dihapus'
         ]);
     }
 }

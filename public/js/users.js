@@ -1,4 +1,4 @@
-// Users CRUD Module for MotoStock
+// Users Management Module for MotoStock
 
 const Users = {
     users: [],
@@ -44,9 +44,10 @@ const Users = {
                 ? '<span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 uppercase">Admin</span>'
                 : '<span class="px-2.5 py-0.5 rounded text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 uppercase">Kasir</span>';
 
-            const statusBadge = parseInt(user.is_active) === 1
+            const isActive = user.is_active === true || user.is_active === 1 || user.is_active === '1';
+            const statusBadge = isActive
                 ? '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-green-500/10 text-green-400 border border-green-500/20 uppercase">Aktif</span>'
-                : '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-500 border border-slate-700 uppercase">Non-Aktif</span>';
+                : '<span class="px-2 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-500 border border-slate-700 uppercase">Nonaktif</span>';
 
             return `
                 <tr class="border-b border-slate-850 hover:bg-slate-800/40 transition-colors">
@@ -75,25 +76,26 @@ const Users = {
     showForm: function(id = null) {
         const user = id ? this.users.find(u => u.id === id) : null;
         const title = user ? 'Edit Akun Pengguna' : 'Tambah Pengguna Baru';
+        const isActive = user ? (user.is_active === true || user.is_active === 1 || user.is_active === '1') : true;
 
         const formHtml = `
             <form id="user-form" class="space-y-4 text-left">
                 <input type="hidden" name="id" value="${user ? user.id : ''}">
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">NAMA LENGKAP PENGGUNA *</label>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">NAMA LENGKAP *</label>
                     <input type="text" name="nama" required value="${user ? Utils.escapeHtml(user.nama) : ''}"
                         class="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-red" placeholder="Nama Lengkap Karyawan">
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-1">USERNAME LOGIN *</label>
+                        <label class="block text-xs font-semibold text-gray-400 mb-1">USERNAME *</label>
                         <input type="text" name="username" required value="${user ? Utils.escapeHtml(user.username) : ''}"
                             class="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-red" placeholder="username">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-1">ROLE / JABATAN *</label>
+                        <label class="block text-xs font-semibold text-gray-400 mb-1">ROLE *</label>
                         <select name="role" required class="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-red">
                             <option value="kasir" ${user && user.role === 'kasir' ? 'selected' : ''}>Kasir / Staff</option>
                             <option value="admin" ${user && user.role === 'admin' ? 'selected' : ''}>Administrator</option>
@@ -108,10 +110,10 @@ const Users = {
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-400 mb-1">STATUS KEAKTIFAN</label>
+                    <label class="block text-xs font-semibold text-gray-400 mb-1">STATUS</label>
                     <select name="is_active" class="w-full bg-slate-800 border border-slate-700 rounded-md px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-brand-red">
-                        <option value="1" ${user && parseInt(user.is_active) === 1 ? 'selected' : ''}>Aktif</option>
-                        <option value="0" ${user && parseInt(user.is_active) === 0 ? 'selected' : ''}>Tidak Aktif (Diarsipkan)</option>
+                        <option value="1" ${isActive ? 'selected' : ''}>Aktif</option>
+                        <option value="0" ${!isActive ? 'selected' : ''}>Nonaktif</option>
                     </select>
                 </div>
             </form>
@@ -147,7 +149,7 @@ const Users = {
             formData.forEach((value, key) => {
                 payload[key] = value;
             });
-            payload['is_active'] = payload['is_active'] === '1';
+            payload['is_active'] = payload['is_active'] === '1' || payload['is_active'] === true;
             result = await Utils.apiCall('users', 'PUT', payload);
         } else {
             // Create (POST)
@@ -167,12 +169,12 @@ const Users = {
     },
 
     deleteUser: async function(id) {
-        const confirm = await Utils.confirmDialog('Apakah Anda yakin ingin menghapus pengguna ini? Pengguna dengan riwayat transaksi akan dinonaktifkan (diarsipkan), dan pengguna tanpa riwayat akan dihapus secara permanen.');
+        const confirm = await Utils.confirmDialog('Apakah Anda yakin ingin menghapus pengguna ini?');
         if (!confirm) return;
 
         const result = await Utils.apiCall(`users/${id}`, 'DELETE');
         if (result.success) {
-            Utils.showToast(result.message || 'Pengguna berhasil diproses.', 'success');
+            Utils.showToast(result.message || 'Pengguna berhasil dihapus.', 'success');
             this.loadUsers();
         } else {
             Utils.showToast(result.message || 'Gagal menghapus pengguna.', 'error');

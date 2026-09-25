@@ -5,9 +5,11 @@ const Purchases = {
     suppliers: [],
     products: [],
     cart: [],
+    selectedProduct: null,
 
     init: async function() {
         this.cart = [];
+        this.selectedProduct = null;
         this.updateCartDisplay();
 
         // Setup Tab Toggles
@@ -117,30 +119,165 @@ const Purchases = {
         }
 
         if (prodRes.success) {
-            this.products = prodRes.data.filter(p => parseInt(p.is_active) === 1);
-            const select = document.getElementById('purchase-product-select');
-            if (select) {
-                select.innerHTML = '<option value="">Pilih Suku Cadang...</option>' +
-                    this.products.map(p => `<option value="${p.id}">${Utils.escapeHtml(p.sku)} - ${Utils.escapeHtml(p.nama)}</option>`).join('');
-            }
+            this.products = prodRes.data.filter(p => parseInt(p.is_active) === 1 || p.is_active === true || p.is_active === '1');
+            this.setupSearchableSelector();
         }
     },
 
+    setupSearchableSelector: function() {
+        const searchInput = document.getElementById('purchase-product-search');
+        const resultsContainer = document.getElementById('purchase-search-results');
+        const hiddenIdInput = document.getElementById('purchase-product-id');
+        const selectedContainer = document.getElementById('purchase-selected-product');
+        const clearSearchBtn = document.getElementById('purchase-clear-search');
+        const changeProdBtn = document.getElementById('btn-change-purchase-prod');
+        const priceInput = document.getElementById('purchase-price-input');
+        const qtyInput = document.getElementById('purchase-qty-input');
+
+        if (!searchInput || !resultsContainer || !hiddenIdInput || !selectedContainer) return;
+
+        const renderResults = (query) => {
+            const trimmed = query.trim().toLowerCase();
+            const filtered = this.products.filter(p => {
+                const nameMatch = (p.nama || '').toLowerCase().includes(trimmed);
+                const skuMatch = (p.sku || '').toLowerCase().includes(trimmed);
+                const partNoMatch = (p.part_number || '').toLowerCase().includes(trimmed);
+                return nameMatch || skuMatch || partNoMatch;
+            });
+
+            if (filtered.length === 0) {
+                resultsContainer.innerHTML = `
+                    <div class="p-3 text-center text-xs text-slate-500">
+                        Tidak ada spare part ditemukan untuk "${Utils.escapeHtml(query)}"
+                    </div>
+                `;
+            } else {
+                resultsContainer.innerHTML = filtered.slice(0, 30).map(p => `
+                    <div class="p-2.5 hover:bg-slate-800 cursor-pointer transition-colors flex items-center justify-between group" data-product-id="${p.id}">
+                        <div class="truncate mr-2">
+                            <div class="text-xs font-semibold text-gray-100 group-hover:text-red-400 transition-colors truncate">
+                                ${Utils.escapeHtml(p.nama)}
+                            </div>
+                            <div class="flex items-center space-x-2 text-[11px] text-gray-400 mt-0.5">
+                                <span class="font-mono-numbers text-slate-300 font-medium">${Utils.escapeHtml(p.sku)}</span>
+                                <span>•</span>
+                                <span>${Utils.escapeHtml(p.motor || 'Universal')}</span>
+                            </div>
+                        </div>
+                        <div class="text-right flex-shrink-0 pl-2">
+                            <span class="text-[10px] text-gray-400 block">Stok: <strong class="text-amber-400 font-mono-numbers">${p.stok}</strong></span>
+                            <span class="text-[10px] text-slate-500 font-mono-numbers">Beli: ${Utils.formatRupiah(p.harga_beli || 0)}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                resultsContainer.querySelectorAll('[data-product-id]').forEach(item => {
+                    item.addEventListener('click', () => {
+                        const prodId = parseInt(item.getAttribute('data-product-id'));
+                        const product = this.products.find(p => p.id === prodId);
+                        if (product) {
+                            selectProduct(product);
+                        }
+                    });
+                });
+            }
+
+            resultsContainer.classList.remove('hidden');
+        };
+
+        const selectProduct = (product) => {
+            this.selectedProduct = product;
+            hiddenIdInput.value = product.id;
+
+            document.getElementById('purchase-selected-name').textContent = product.nama;
+            document.getElementById('purchase-selected-sku').textContent = product.sku;
+            document.getElementById('purchase-selected-motor').textContent = product.motor || 'Universal';
+            document.getElementById('purchase-selected-stok').textContent = product.stok;
+
+            // Auto fill harga beli baru if empty or update to product harga_beli
+            if (priceInput && (!priceInput.value || parseFloat(priceInput.value) === 0)) {
+                priceInput.value = Math.round(parseFloat(product.harga_beli || 0));
+            }
+
+            document.getElementById('purchase-search-container').classList.add('hidden');
+            selectedContainer.classList.remove('hidden');
+            resultsContainer.classList.add('hidden');
+            lucide.createIcons();
+
+            if (qtyInput) {
+                qtyInput.focus();
+                qtyInput.select();
+            }
+        };
+
+        const unselectProduct = () => {
+            this.selectedProduct = null;
+            hiddenIdInput.value = '';
+            selectedContainer.classList.add('hidden');
+            document.getElementById('purchase-search-container').classList.remove('hidden');
+            searchInput.value = '';
+            if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
+            resultsContainer.classList.add('hidden');
+            searchInput.focus();
+        };
+
+        this.unselectProduct = unselectProduct;
+
+        // Clone element listeners cleanly
+        searchInput.oninput = (e) => {
+            const query = e.target.value;
+            if (query.trim().length > 0) {
+                if (clearSearchBtn) clearSearchBtn.classList.remove('hidden');
+                renderResults(query);
+            } else {
+                if (clearSearchBtn) clearSearchBtn.classList.add('hidden');
+                renderResults('');
+            }
+        };
+
+        searchInput.onfocus = () => {
+            renderResults(searchInput.value);
+        };
+
+        if (clearSearchBtn) {
+            clearSearchBtn.onclick = () => {
+                searchInput.value = '';
+                clearSearchBtn.classList.add('hidden');
+                renderResults('');
+                searchInput.focus();
+            };
+        }
+
+        if (changeProdBtn) {
+            changeProdBtn.onclick = () => {
+                unselectProduct();
+            };
+        }
+
+        document.onclick = (e) => {
+            if (!e.target.closest('#purchase-search-container')) {
+                if (resultsContainer) resultsContainer.classList.add('hidden');
+            }
+        };
+    },
+
     addToCart: function() {
-        const select = document.getElementById('purchase-product-select');
         const qtyInput = document.getElementById('purchase-qty-input');
         const priceInput = document.getElementById('purchase-price-input');
+        const hiddenIdInput = document.getElementById('purchase-product-id');
 
-        const productId = parseInt(select.value);
-        const qty = parseInt(qtyInput.value);
-        const price = parseFloat(priceInput.value);
+        const productId = this.selectedProduct ? this.selectedProduct.id : parseInt(hiddenIdInput ? hiddenIdInput.value : 0);
+        const qty = parseInt(qtyInput ? qtyInput.value : 0);
+        const price = parseFloat(priceInput ? priceInput.value : 0);
 
         if (!productId || isNaN(qty) || qty <= 0 || isNaN(price) || price < 0) {
-            Utils.showToast('Lengkapi produk, jumlah qty, dan harga beli.', 'warning');
+            Utils.showToast('Lengkapi pilihan spare part, jumlah (qty), dan harga beli.', 'warning');
+            const searchInput = document.getElementById('purchase-product-search');
+            if (searchInput && !productId) searchInput.focus();
             return;
         }
 
-        const product = this.products.find(p => p.id === productId);
+        const product = this.selectedProduct || this.products.find(p => p.id === productId);
         if (!product) return;
 
         // Check if item already in cart
@@ -160,10 +297,12 @@ const Purchases = {
             });
         }
 
-        // Reset inputs
-        select.value = '';
-        qtyInput.value = '1';
-        priceInput.value = '';
+        // Reset inputs & product selector
+        if (typeof this.unselectProduct === 'function') {
+            this.unselectProduct();
+        }
+        if (qtyInput) qtyInput.value = '1';
+        if (priceInput) priceInput.value = '';
 
         this.updateCartDisplay();
         Utils.showToast('Item berhasil dimasukkan ke daftar.', 'info');
@@ -212,7 +351,15 @@ const Purchases = {
     clearCart: function() {
         this.cart = [];
         this.updateCartDisplay();
-        document.getElementById('purchase-catatan').value = '';
+        if (typeof this.unselectProduct === 'function') {
+            this.unselectProduct();
+        }
+        const qtyInput = document.getElementById('purchase-qty-input');
+        const priceInput = document.getElementById('purchase-price-input');
+        if (qtyInput) qtyInput.value = '1';
+        if (priceInput) priceInput.value = '';
+        const catatan = document.getElementById('purchase-catatan');
+        if (catatan) catatan.value = '';
     },
 
     submitPurchase: async function() {
@@ -298,7 +445,7 @@ const Purchases = {
                                 ${items.map(item => `
                                     <tr>
                                         <td class="px-4 py-3">
-                                            <div class="font-semibold text-gray-200">${Utils.escapeHtml(item.nama_produk)}</div>
+                                             <div class="font-semibold text-gray-200">${Utils.escapeHtml(item.nama_produk)}</div>
                                             <div class="text-[10px] text-gray-500 font-mono-numbers">${Utils.escapeHtml(item.sku)}</div>
                                         </td>
                                         <td class="px-4 py-3 text-right font-mono-numbers text-gray-400">${Utils.formatRupiah(item.harga_beli)}</td>
